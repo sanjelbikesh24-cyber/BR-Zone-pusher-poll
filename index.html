@@ -4,238 +4,309 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>BR Ranked Zone Pusher Poll</title>
+  <title>Free Fire Poll</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #111827, #1e293b);
+      background: #111827;
       color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      margin: 0;
       padding: 20px;
     }
 
-    .poll-box {
-      width: 100%;
+    .container {
       max-width: 500px;
+      margin: auto;
       background: #1f2937;
       padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      border-radius: 15px;
     }
 
     h1 {
       text-align: center;
-      margin-top: 0;
     }
 
-    .question {
-      text-align: center;
-      font-size: 20px;
-      margin-bottom: 25px;
+    .option {
+      display: block;
+      background: #374151;
+      padding: 15px;
+      margin: 12px 0;
+      border-radius: 10px;
+      cursor: pointer;
     }
 
-    .player {
+    .option:hover {
+      background: #4b5563;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    button {
       width: 100%;
-      padding: 16px;
-      margin: 10px 0;
+      padding: 14px;
+      margin-top: 15px;
       border: none;
-      border-radius: 12px;
-      background: #2563eb;
+      border-radius: 10px;
+      background: #22c55e;
       color: white;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .player:hover {
-      background: #1d4ed8;
+    button:hover {
+      background: #16a34a;
     }
 
-    .player:active {
-      transform: scale(0.98);
+    button:disabled {
+      background: #6b7280;
+      cursor: not-allowed;
     }
 
     .results {
       margin-top: 30px;
     }
 
+    .result {
+      margin: 15px 0;
+    }
+
     .result-name {
-      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
       margin-bottom: 5px;
     }
 
     .bar {
-      width: 100%;
-      height: 20px;
-      background: #374151;
+      height: 15px;
+      background: #4b5563;
       border-radius: 10px;
       overflow: hidden;
     }
 
     .fill {
       height: 100%;
+      background: #3b82f6;
       width: 0%;
-      background: #22c55e;
-      transition: width 0.4s;
     }
 
-    .percentage {
-      font-size: 14px;
-      color: #d1d5db;
-    }
-
-    .reset {
-      margin-top: 25px;
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: #dc2626;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
+    #message {
+      text-align: center;
+      margin-top: 15px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="poll-box">
+<div class="container">
 
-    <h1>🔥 BR RANKED POLL</h1>
+  <h1>🔥 Free Fire Poll</h1>
 
-    <div class="question">
-      Who will be the <b>Zone Pusher</b> for our BR Ranked Matches?
+  <p style="text-align:center;">
+    Choose <b>ONE</b> person
+  </p>
+
+  <form id="pollForm">
+
+    <label class="option">
+      <input type="radio" name="person" value="Person 1">
+      Person 1
+    </label>
+
+    <label class="option">
+      <input type="radio" name="person" value="Person 2">
+      Person 2
+    </label>
+
+    <label class="option">
+      <input type="radio" name="person" value="Person 3">
+      Person 3
+    </label>
+
+    <label class="option">
+      <input type="radio" name="person" value="Person 4">
+      Person 4
+    </label>
+
+    <button type="submit" id="voteButton">
+      VOTE
+    </button>
+
+  </form>
+
+  <div id="message"></div>
+
+  <div class="results">
+
+    <h2>📊 Live Results</h2>
+
+    <div class="result">
+      <div class="result-name">
+        <span>Person 1</span>
+        <span id="count1">0 votes</span>
+      </div>
+      <div class="bar">
+        <div class="fill" id="bar1"></div>
+      </div>
     </div>
 
-    <button class="player" onclick="vote('Naman Agrawal')">
-      1️⃣ Naman Agrawal
-    </button>
-
-    <button class="player" onclick="vote('Niten Dhakal')">
-      2️⃣ Niten Dhakal
-    </button>
-
-    <button class="player" onclick="vote('Paras Thapa')">
-      3️⃣ Paras Thapa
-    </button>
-
-    <button class="player" onclick="vote('Suyog Hamal')">
-      4️⃣ Suyog Hamal
-    </button>
-
-    <div class="results">
-
-      <h2>📊 Results</h2>
-
+    <div class="result">
       <div class="result-name">
-        Naman Agrawal — <span id="naman-count">0</span> votes
-        <span class="percentage" id="naman-percent">0%</span>
+        <span>Person 2</span>
+        <span id="count2">0 votes</span>
       </div>
       <div class="bar">
-        <div class="fill" id="naman-bar"></div>
+        <div class="fill" id="bar2"></div>
       </div>
-
-      <div class="result-name">
-        Niten Dhakal — <span id="niten-count">0</span> votes
-        <span class="percentage" id="niten-percent">0%</span>
-      </div>
-      <div class="bar">
-        <div class="fill" id="niten-bar"></div>
-      </div>
-
-      <div class="result-name">
-        Paras Thapa — <span id="paras-count">0</span> votes
-        <span class="percentage" id="paras-percent">0%</span>
-      </div>
-      <div class="bar">
-        <div class="fill" id="paras-bar"></div>
-      </div>
-
-      <div class="result-name">
-        Suyog Hamal — <span id="suyog-count">0</span> votes
-        <span class="percentage" id="suyog-percent">0%</span>
-      </div>
-      <div class="bar">
-        <div class="fill" id="suyog-bar"></div>
-      </div>
-
     </div>
 
-    <button class="reset" onclick="resetPoll()">
-      🔄 Reset Poll
-    </button>
+    <div class="result">
+      <div class="result-name">
+        <span>Person 3</span>
+        <span id="count3">0 votes</span>
+      </div>
+      <div class="bar">
+        <div class="fill" id="bar3"></div>
+      </div>
+    </div>
+
+    <div class="result">
+      <div class="result-name">
+        <span>Person 4</span>
+        <span id="count4">0 votes</span>
+      </div>
+      <div class="bar">
+        <div class="fill" id="bar4"></div>
+      </div>
+    </div>
 
   </div>
 
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 
-let votes = {
-  "Naman Agrawal": 0,
-  "Niten Dhakal": 0,
-  "Paras Thapa": 0,
-  "Suyog Hamal": 0
-};
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
 
-function vote(player) {
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
-  votes[player]++;
+const people = [
+  "Person 1",
+  "Person 2",
+  "Person 3",
+  "Person 4"
+];
 
-  updateResults();
-}
+async function loadResults() {
 
-function updateResults() {
+  const { data, error } = await supabaseClient
+    .from("votes")
+    .select("person");
 
-  let total = Object.values(votes)
-    .reduce((sum, value) => sum + value, 0);
-
-  const players = {
-    "Naman Agrawal": "naman",
-    "Niten Dhakal": "niten",
-    "Paras Thapa": "paras",
-    "Suyog Hamal": "suyog"
-  };
-
-  for (let player in players) {
-
-    let id = players[player];
-
-    let count = votes[player];
-
-    let percentage = total === 0
-      ? 0
-      : Math.round((count / total) * 100);
-
-    document.getElementById(id + "-count").innerText = count;
-
-    document.getElementById(id + "-percent").innerText =
-      percentage + "%";
-
-    document.getElementById(id + "-bar").style.width =
-      percentage + "%";
+  if (error) {
+    console.log(error);
+    return;
   }
-}
 
-function resetPoll() {
-
-  votes = {
-    "Naman Agrawal": 0,
-    "Niten Dhakal": 0,
-    "Paras Thapa": 0,
-    "Suyog Hamal": 0
+  const counts = {
+    "Person 1": 0,
+    "Person 2": 0,
+    "Person 3": 0,
+    "Person 4": 0
   };
 
-  updateResults();
+  data.forEach(vote => {
+    if (counts[vote.person] !== undefined) {
+      counts[vote.person]++;
+    }
+  });
+
+  const total = data.length;
+
+  people.forEach((person, index) => {
+
+    const number = index + 1;
+    const votes = counts[person];
+
+    document.getElementById("count" + number).textContent =
+      votes + (votes === 1 ? " vote" : " votes");
+
+    const percentage =
+      total === 0 ? 0 : (votes / total) * 100;
+
+    document.getElementById("bar" + number).style.width =
+      percentage + "%";
+  });
 }
+
+
+document.getElementById("pollForm").addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+    const selected =
+      document.querySelector('input[name="person"]:checked');
+
+    if (!selected) {
+
+      document.getElementById("message").textContent =
+        "⚠️ Please select one person.";
+
+      return;
+    }
+
+    const voteButton =
+      document.getElementById("voteButton");
+
+    voteButton.disabled = true;
+
+    const { error } = await supabaseClient
+      .from("votes")
+      .insert([
+        {
+          person: selected.value
+        }
+      ]);
+
+    if (error) {
+
+      console.log(error);
+
+      document.getElementById("message").textContent =
+        "❌ Something went wrong.";
+
+      voteButton.disabled = false;
+
+      return;
+    }
+
+    document.getElementById("message").textContent =
+      "✅ Your vote has been recorded!";
+
+    document
+      .querySelectorAll('input[name="person"]')
+      .forEach(input => input.disabled = true);
+
+    await loadResults();
+  }
+);
+
+
+loadResults();
+
+setInterval(loadResults, 5000);
 
 </script>
 
